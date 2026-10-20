@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05060c" />
+    <script>
+      // Set the theme before first paint to avoid a flash (dark by default, then the visitor's saved choice)
+      (function () {
+        try {
+          var t = localStorage.getItem('portfolio-theme');
+          if (t !== 'light' && t !== 'dark') t = 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Shubham Yadav | AI/ML, Data Analytics &amp; Software Development</title>
+    <meta
+      name="description"
+      content="Portfolio of Shubham Yadav, a Computer Science Engineering (AI &amp; ML) student building AI/ML, data analytics and full-stack projects. View projects, certifications and contact details."
+    />
+    <meta name="author" content="Shubham Yadav" />
+    <meta
+      name="keywords"
+      content="Shubham Yadav, portfolio, AI, machine learning, data analytics, software developer, Python, React, FastAPI, Mumbai University"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Twitter. Set VITE_SITE_URL in .env or in Vercel env vars (e.g. https://your-site.vercel.app) for absolute URLs -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shubham Yadav | AI/ML, Data Analytics &amp; Software Development" />
+    <meta
+      property="og:description"
+      content="CSE (AI &amp; ML) student building practical AI/ML, data and full-stack projects."
+    />
+    <meta property="og:image" content="__SITE_URL__/og-image.png" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shubham Yadav | Portfolio" />
+    <meta name="twitter:description" content="CSE (AI &amp; ML) student building practical AI/ML, data and full-stack projects." />
+    <meta name="twitter:image" content="__SITE_URL__/og-image.png" />
+    <meta name="twitter:creator" content="@Shubham_Dev_07" />
+
+    <link rel="preload" as="image" href="/assets/profile-640.webp" type="image/webp" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Shubham Yadav",
+        "jobTitle": "Computer Science Engineering Student (AI & ML)",
+        "email": "mailto:shubhamyadav.pro@gmail.com",
+        "alumniOf": "Theem College of Engineering",
+        "sameAs": [
+          "https://github.com/shubham-yadav-07",
+          "https://www.linkedin.com/in/shubham-yadav-11aa552aa",
+          "https://leetcode.com/u/shubham123215",
+          "https://x.com/Shubham_Dev_07"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This portfolio needs JavaScript enabled. Contact: shubhamyadav.pro@gmail.com</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
