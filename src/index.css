@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   THEME TOKENS (space separated RGB channels so Tailwind can add alpha)
+   Dark is the default. Light is applied with <html data-theme="light">.
+------------------------------------------------------------------- */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --void: 5 6 12;
+  --navy-950: 8 10 20;
+  --navy-900: 13 17 33;
+  --navy-800: 19 24 46;
+  --navy-700: 30 36 64;
+  --fg: 255 255 255;
+  --ink: 232 236 248;
+  --ink-muted: 156 165 192;
+  --ink-faint: 110 119 148;
+  --accent: 190 247 58; /* lime */
+  --accent2: 155 120 255; /* violet */
+  --lime: 190 247 58;
+  --ok: 74 222 128;
+  --err: 251 113 133;
+  --warn: 252 211 77;
+  --shadow: 0 0 0;
+  --mx: 70%;
+  --my: 20%;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --void: 244 246 251;
+  --navy-950: 236 240 248;
+  --navy-900: 255 255 255;
+  --navy-800: 243 245 251;
+  --navy-700: 226 231 242;
+  --fg: 15 23 42;
+  --ink: 30 41 59;
+  --ink-muted: 71 85 105;
+  --ink-faint: 100 116 139;
+  --accent: 58 105 6; /* deep lime-green for readable text */
+  --accent2: 109 63 224;
+  --lime: 190 247 58;
+  --ok: 21 128 61;
+  --err: 190 18 60;
+  --warn: 146 84 4;
+  --shadow: 30 41 80;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-void font-sans text-ink antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+    color: rgb(var(--fg));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Page backdrop: faint grid, two soft glows and a cursor spotlight */
+  .page-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(60rem 38rem at 88% -8%, rgb(var(--accent2) / 0.16), transparent 60%),
+      radial-gradient(50rem 34rem at -10% 28%, rgb(var(--accent) / 0.08), transparent 60%),
+      linear-gradient(180deg, rgb(var(--navy-950)) 0%, rgb(var(--void)) 45%, rgb(var(--navy-950)) 100%);
+  }
+  .page-backdrop::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(560px circle at var(--mx) var(--my), rgb(var(--accent) / 0.09), transparent 65%);
+    transition: opacity 0.3s;
+  }
+  .page-backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(var(--fg) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--fg) / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 75%);
+  }
+
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-pad {
+    @apply py-20 sm:py-28;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-white/10 bg-navy-900/70 shadow-card backdrop-blur-sm;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-white/10 bg-white/[0.05] px-2.5 py-1 font-mono text-[0.72rem] leading-none text-ink-muted transition duration-200;
+  }
+  .chip:hover {
+    @apply -translate-y-0.5 border-accent/50 text-white;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-5 py-3 text-sm font-semibold transition duration-200 focus-visible:outline-offset-4;
+  }
+  /* shine sweep on hover */
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.35) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .btn:hover::after { transform: translateX(120%); }
+
+  .btn-primary {
+    @apply btn bg-lime text-[#0b1200] shadow-glow hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-white/20 bg-white/[0.04] text-white hover:-translate-y-0.5 hover:border-accent/60 hover:bg-accent/10 active:translate-y-0 active:scale-[0.98];
+  }
+
+  .heading-bar {
+    height: 3px;
+    width: 3.5rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2)));
+  }
+
+  .bracket { position: absolute; width: 18px; height: 18px; border-color: rgb(var(--accent) / 0.9); }
+  .bracket-tl { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; }
+  .bracket-tr { top: 8px; right: 8px; border-top-width: 2px; border-right-width: 2px; }
+  .bracket-bl { bottom: 8px; left: 8px; border-bottom-width: 2px; border-left-width: 2px; }
+  .bracket-br { bottom: 8px; right: 8px; border-bottom-width: 2px; border-right-width: 2px; }
+
+  /* Gradient border frame (lime to violet) */
+  .frame-grad {
+    background:
+      linear-gradient(rgb(var(--navy-900)), rgb(var(--navy-900))) padding-box,
+      linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent2)) 60%, rgb(var(--accent))) border-box;
+    border: 3px solid transparent;
+  }
+
+  /* Underline slide for nav links */
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.25rem;
+    height: 2px;
+    border-radius: 2px;
+    background: rgb(var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current='true']::after { transform: scaleX(1); }
+}
+
+/* ---------- Custom cursor (fine pointers only, see CursorEffects.tsx) ---------- */
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 999px;
+  border: 1.5px solid rgb(var(--accent) / 0.8);
+  transition: width 0.25s, height 0.25s, margin 0.25s, background-color 0.25s, border-color 0.25s, opacity 0.25s;
+}
+.cursor-ring.is-hover {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: rgb(var(--accent) / 0.12);
+  border-color: rgb(var(--accent2) / 0.9);
+}
+.cursor-ring.is-down { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: rgb(var(--accent) / 0.25); }
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: rgb(var(--accent));
+}
+.cursor-on .cursor-ring,
+.cursor-on .cursor-dot { opacity: 1; }
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: #fff;
+  color: #000;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
