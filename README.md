@@ -82,32 +82,6 @@ shubham-yadav-portfolio/
     └── index.css           global styles and theme colors
 ```
 
-To update the site, edit the files in `src/data/` and push to GitHub.
-
-## Environment variables (optional)
-
-Copy `.env.example` to `.env` and set:
-
-| Variable | Purpose |
-| --- | --- |
-| `VITE_FORM_ENDPOINT` | Formspree URL for the contact form. If empty, the form opens the visitor's email app |
-| `VITE_SITE_URL` | Your live site URL, used for the social share preview |
-
-These are public values, not secrets. Never put private API keys in `VITE_` variables.
-
-## Deploy on Render (free)
-
-1. Push this repo to GitHub.
-2. On [render.com](https://render.com): **New + → Static Site** and connect the repo.
-3. Settings:
-   - Build Command: `npm install && npm run build`
-   - Publish Directory: `dist`
-   - Environment variable: `NODE_VERSION` = `20`
-4. Click **Deploy**. Every push to `main` redeploys the site automatically.
-5. After the first deploy, add `VITE_SITE_URL` with your live URL and redeploy.
-
-Vercel and Netlify work the same way (build command `npm run build`, output directory `dist`).
-
 ## Contact
 
 - Email: shubhamyadav.pro@gmail.com
