@@ -2,8 +2,7 @@ import { navLinks, profile } from '@/data/profile'
 import SocialLinks from './SocialLinks'
 
 export default function Footer() {
-  const year = new Date().getFullYear()
-  return (
+   const year = new Date().getFullYear()  return (
     <footer className="border-t border-white/10 bg-void/60">
       <div className="container-x flex flex-col items-center justify-between gap-6 py-10 md:flex-row">
         <div className="text-center md:text-left">
