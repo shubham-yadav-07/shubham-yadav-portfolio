@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+.vscode/*
+!.vscode/extensions.json
+
+# Large original design files
+design-assets/
